@@ -4,13 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>凌博文 · 3D 作品空间站</title>
-  <meta name="description" content="凌博文（little-white-again）的个人作品空间站：3D 交互简历。" />
+  <meta name="description" content="凌博文（little-white-again）的 3D 交互简历。" />
   <!-- 艺术字体 -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet" />
-  <script type="module" crossorigin src="./assets/index-CkRQ5xzM.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-B0rXtel8.css">
+  <script type="module" crossorigin src="./assets/index-BMniQ2VL.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-BQaT1nR5.css">
 </head>
 <body>
   <!-- 3D 场景 -->
@@ -20,7 +20,7 @@
   <div id="loader">
     <div class="loader-inner">
       <div class="loader-ring"></div>
-      <p class="loader-text">INITIALIZING<span class="dots"><span>.</span><span>.</span><span>.</span></span></p>
+      <p class="loader-text">ENTERING SPACE<span class="dots"><span>.</span><span>.</span><span>.</span></span></p>
     </div>
   </div>
 
@@ -31,124 +31,42 @@
     <div class="hud-right"><span class="hud-coord" id="hud-coord">X:0 Y:0 Z:0</span></div>
   </div>
 
-  <!-- Hero（缩小 + 动态解密效果，不抢主题） -->
+  <!-- 顶部 Hero（缩小） -->
   <header id="hero">
     <div class="hero-eyebrow">WELCOME TO MY PORTFOLIO</div>
     <h1 class="hero-title">
       <span class="hero-title-cn" id="scramble-text">凌博文</span>
+      <span class="hero-title-en">LING BOWEN</span>
     </h1>
     <div class="hero-meta">
       <span class="hero-sub">江苏理工学院 · 准大一</span>
       <span class="hero-sep">/</span>
       <span class="hero-sub">Vibe Coding 创作者</span>
     </div>
-    <div class="hero-hint">◈ 点击模型探索 ◈</div>
   </header>
 
-  <!-- 内容弹窗 -->
-  <div id="cert-modal">
-    <div class="cert-modal-content">
-      <button id="cert-close">×</button>
-      <div class="cert-body">
-        <div class="cert-media">
-          <img id="cert-img" src="" alt="内容" />
-          <div id="cert-carousel" class="hidden">
-            <button id="cert-prev" class="carousel-btn">‹</button>
-            <div class="carousel-meta">
-              <div id="carousel-title" class="carousel-title"></div>
-              <div id="carousel-org" class="carousel-org"></div>
-              <div id="carousel-index" class="carousel-index"></div>
-            </div>
-            <button id="cert-next" class="carousel-btn">›</button>
-          </div>
+  <!-- 底部提示 -->
+  <div id="bottom-hint">
+    <span>◈ 点击星球查看全部信息 ◈</span>
+  </div>
+
+  <!-- 内容弹窗（高科技毛玻璃） -->
+  <div id="content-modal">
+    <div class="modal-frame">
+      <div class="modal-glow"></div>
+      <button id="modal-close" class="modal-close">×</button>
+      <div class="modal-scroll">
+        <div class="modal-header">
+          <div class="modal-badge" id="modal-badge">MODULE DATA</div>
+          <h2 id="modal-title"></h2>
+          <p id="modal-org" class="modal-org"></p>
+          <div id="modal-tags" class="modal-tags"></div>
         </div>
-        <div class="cert-info">
-          <div class="cert-badge" id="cert-badge">MODULE DATA</div>
-          <h2 id="cert-title"></h2>
-          <p id="cert-org" class="cert-org"></p>
-          <div id="cert-tags" class="cert-tags"></div>
-          <p id="cert-desc" class="cert-desc"></p>
-          <div id="cert-links" class="cert-links"></div>
-        </div>
+        <div id="modal-body" class="modal-body"></div>
+        <div id="modal-links" class="modal-links"></div>
       </div>
     </div>
   </div>
-
-  <!-- 导航 -->
-  <nav id="navbar">
-    <a href="#models" class="nav-link">作品</a>
-    <a href="#about" class="nav-link">关于我</a>
-    <a href="#contact" class="nav-link">联系</a>
-  </nav>
-
-  <!-- 2D 内容 -->
-  <main id="content">
-    <section id="models" class="section reveal">
-      <h2 class="section-title"><span class="sec-num">01</span> 作品空间站</h2>
-      <p class="section-desc">点击下方 3D 模型，查看作品、证书与信息</p>
-      <div class="model-guide">
-        <div class="guide-item"><span class="guide-icon">🏆</span><span>证书成就</span></div>
-        <div class="guide-item"><span class="guide-icon">🎮</span><span>坦克大战</span></div>
-        <div class="guide-item"><span class="guide-icon">✈️</span><span>星曜空战</span></div>
-        <div class="guide-item"><span class="guide-icon">🪐</span><span>关于我</span></div>
-      </div>
-    </section>
-
-    <section id="about" class="section reveal">
-      <h2 class="section-title"><span class="sec-num">02</span> 关于我</h2>
-      <div class="stats">
-        <div class="stat"><span class="stat-num">1</span><span class="stat-label">国家级编程认证</span></div>
-        <div class="stat"><span class="stat-num">2</span><span class="stat-label">AI 认证</span></div>
-        <div class="stat"><span class="stat-num">2</span><span class="stat-label">独立游戏</span></div>
-        <div class="stat"><span class="stat-num">∞</span><span class="stat-label">好奇心</span></div>
-      </div>
-
-      <h3 class="about-heading">教育背景</h3>
-      <div class="edu-card">
-        <div class="edu-item">
-          <div class="edu-main">江苏理工学院 <span class="edu-tag">2026 级</span></div>
-          <div class="edu-sub">汽车与交通工程学院 · 汽车服务工程（4 年制）</div>
-          <div class="edu-time">2026.09 入学</div>
-        </div>
-        <div class="edu-item">
-          <div class="edu-main">桐乡市凤鸣高级中学</div>
-          <div class="edu-sub">高中理科 · 信息技术成绩优良</div>
-          <div class="edu-time">2023.09 – 2026.06</div>
-        </div>
-      </div>
-
-      <h3 class="about-heading">技能</h3>
-      <div class="skill-grid">
-        <div class="skill-item"><span class="skill-name">Python</span><span class="skill-bar"><i style="width:70%"></i></span></div>
-        <div class="skill-item"><span class="skill-name">C++</span><span class="skill-bar"><i style="width:50%"></i></span></div>
-        <div class="skill-item"><span class="skill-name">Arduino</span><span class="skill-bar"><i style="width:65%"></i></span></div>
-        <div class="skill-item"><span class="skill-name">HTML/CSS</span><span class="skill-bar"><i style="width:45%"></i></span></div>
-        <div class="skill-item"><span class="skill-name">Excel</span><span class="skill-bar"><i style="width:75%"></i></span></div>
-        <div class="skill-item"><span class="skill-name">JavaScript</span><span class="skill-bar"><i style="width:60%"></i></span></div>
-      </div>
-
-      <h3 class="about-heading">奖项</h3>
-      <div class="award-list">
-        <div class="award-item"><span class="award-badge">市</span><div class="award-text"><b>红船少年</b><span>市级荣誉 · 2021</span></div></div>
-        <div class="award-item"><span class="award-badge">校</span><div class="award-text"><b>科技创新节二等奖</b><span>2024</span></div></div>
-        <div class="award-item"><span class="award-badge">校</span><div class="award-text"><b>科学竞赛三等奖</b><span>2024</span></div></div>
-      </div>
-    </section>
-
-    <section id="contact" class="section reveal">
-      <h2 class="section-title"><span class="sec-num">03</span> 建立连接</h2>
-      <div class="contact-links">
-        <a href="mailto:zhuxiangyi080729@foxmail.com" class="contact-btn">邮箱</a>
-        <a href="https://github.com/little-white-again" target="_blank" class="contact-btn">GitHub</a>
-        <a href="tel:+8619883388875" class="contact-btn">电话</a>
-      </div>
-      <p class="contact-note">zhuxiangyi080729@foxmail.com · +86 19883388875</p>
-    </section>
-
-    <footer id="footer">
-      <p>© 2026 凌博文 · Powered by Three.js & Vibe Coding</p>
-    </footer>
-  </main>
 
 </body>
 </html>
