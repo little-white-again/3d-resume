@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>星曜空战</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <canvas id="game"></canvas>
+
+    <div id="overlay" class="overlay">
+      <div class="panel">
+        <h1>星曜空战</h1>
+        <p>在星域风暴中突围，击败黑暗主宰，守护文明之光。</p>
+        <div class="controls">
+          <div>移动：WASD / 鼠标 / 方向键</div>
+          <div>特殊技能：空格键</div>
+          <div>暂停：ESC</div>
+        </div>
+        <button id="startBtn">开始战斗</button>
+      </div>
+    </div>
+
+    <div id="upgradePanel" class="upgrade-panel hidden">
+      <h2>选择一次升级</h2>
+      <div id="upgradeOptions" class="upgrade-options"></div>
+    </div>
+
+    <script src="main.js"></script>
+  </body>
+</html>

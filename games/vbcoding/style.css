@@ -1,0 +1,174 @@
+:root {
+  color-scheme: dark;
+  font-family: "Segoe UI", "Orbitron", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #02030a;
+  color: #eaf6ff;
+}
+
+body {
+  position: relative;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(0, 142, 255, 0.2), transparent 28%),
+    radial-gradient(circle at 80% 15%, rgba(182, 64, 255, 0.2), transparent 24%),
+    linear-gradient(135deg, #060b18 0%, #02040d 45%, #040614 100%);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.03) 0px,
+    rgba(255, 255, 255, 0.03) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0.2;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle, transparent 0%, rgba(0, 0, 0, 0.25) 70%, rgba(0, 0, 0, 0.55) 100%);
+  pointer-events: none;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: crosshair;
+  filter: saturate(1.15) contrast(1.08);
+}
+
+.overlay,
+.upgrade-panel {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+}
+
+.overlay {
+  background: rgba(2, 4, 10, 0.72);
+  backdrop-filter: blur(16px);
+}
+
+.panel {
+  width: min(92vw, 680px);
+  padding: 2.2rem;
+  border-radius: 28px;
+  background: linear-gradient(145deg, rgba(11, 19, 38, 0.95), rgba(5, 10, 22, 0.96));
+  border: 1px solid rgba(102, 186, 255, 0.32);
+  box-shadow: 0 0 45px rgba(0, 208, 255, 0.24), inset 0 0 35px rgba(125, 227, 255, 0.12);
+  text-align: center;
+}
+
+.panel h1 {
+  margin: 0 0 0.6rem;
+  font-size: clamp(2rem, 4vw, 3rem);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  text-shadow: 0 0 16px rgba(125, 227, 255, 0.35);
+}
+
+.panel p {
+  color: #a8c7e5;
+  line-height: 1.8;
+}
+
+.controls {
+  margin: 1.2rem 0 1.6rem;
+  display: grid;
+  gap: 0.4rem;
+  color: #8edcff;
+}
+
+button {
+  border: none;
+  border-radius: 999px;
+  padding: 0.95rem 1.45rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #07101b;
+  background: linear-gradient(90deg, #7de3ff 0%, #9a72ff 100%);
+  cursor: pointer;
+  box-shadow: 0 0 26px rgba(125, 227, 255, 0.28);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 34px rgba(125, 227, 255, 0.38);
+}
+
+.hidden {
+  display: none;
+}
+
+.upgrade-panel {
+  pointer-events: none;
+}
+
+.upgrade-panel:not(.hidden) {
+  pointer-events: auto;
+}
+
+.upgrade-options {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.upgrade-card {
+  padding: 1rem;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(125, 227, 255, 0.2);
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.upgrade-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(125, 227, 255, 0.75);
+  background: rgba(125, 227, 255, 0.1);
+}
+
+.upgrade-card h3 {
+  margin: 0 0 0.35rem;
+  color: #9fefff;
+}
+
+.upgrade-card p {
+  margin: 0;
+  color: #a8c7e5;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 700px) {
+  .upgrade-options {
+    grid-template-columns: 1fr;
+  }
+}

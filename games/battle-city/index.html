@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>坦克大战 · Vibe 重制</title>
+<style>
+  :root { color-scheme: dark; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    background:
+      radial-gradient(ellipse 120% 60% at 50% -10%, #232331 0%, rgba(35,35,49,0) 60%),
+      radial-gradient(ellipse 100% 100% at 50% 120%, #17131d 0%, rgba(23,19,29,0) 55%),
+      #0a0a0e;
+    font-family: "Courier New", Consolas, monospace;
+    color: #d8dce4;
+    padding: 20px;
+    outline: none;
+  }
+  h1 {
+    font-size: 22px;
+    letter-spacing: 6px;
+    color: #f2c94c;
+    font-weight: 700;
+    text-shadow: 0 0 18px rgba(242,201,76,0.55), 0 0 40px rgba(242,201,76,0.22);
+    user-select: none;
+  }
+  #hud {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    background: rgba(22,22,30,0.72);
+    border: 1px solid rgba(242,201,76,0.14);
+    border-radius: 10px;
+    padding: 7px 14px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+    backdrop-filter: blur(4px);
+  }
+  .stat {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 7px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.05);
+    font-size: 13px;
+    color: #8a8f9c;
+    white-space: nowrap;
+  }
+  .stat b { color: #f2c94c; font-size: 16px; font-weight: 700; }
+  .tank-ico {
+    display: inline-block;
+    width: 9px; height: 9px;
+    border-radius: 2px;
+    margin-right: 3px;
+    vertical-align: middle;
+    transition: background 0.15s;
+  }
+  .tank-ico.dead { background: #2a2b33 !important; box-shadow: none !important; }
+  .tank-sep { display: inline-block; width: 1px; height: 12px; background: #3a3b46; margin: 0 6px; vertical-align: middle; }
+  .stat .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    box-shadow: 0 0 8px currentColor;
+  }
+  #combo {
+    color: #ff9a3c;
+    font-weight: 700;
+    font-size: 17px;
+    min-width: 60px;
+    text-align: center;
+    text-shadow: 0 0 12px rgba(255,154,60,0.6);
+  }
+  #wrap { position: relative; }
+  canvas {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    background: #15151a;
+    border: 2px solid rgba(242,201,76,0.22);
+    border-radius: 8px;
+    image-rendering: pixelated;
+    box-shadow:
+      0 0 50px rgba(242,201,76,0.08),
+      0 0 22px rgba(0,0,0,0.65),
+      inset 0 0 60px rgba(0,0,0,0.25);
+    outline: none;
+  }
+  #help {
+    font-size: 12px;
+    color: #6e727a;
+    letter-spacing: 1px;
+    text-align: center;
+    line-height: 1.8;
+  }
+  kbd {
+    background: linear-gradient(#2a2b33, #1d1e25);
+    border: 1px solid #3a3b46;
+    border-bottom-width: 2px;
+    border-radius: 5px;
+    padding: 1px 7px;
+    font-size: 12px;
+    color: #e8eaf0;
+    font-family: inherit;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.4);
+  }
+  @media (max-width: 600px) {
+    body { gap: 8px; padding: 10px; justify-content: flex-start; }
+    h1 { font-size: 16px; letter-spacing: 3px; }
+    #hud { flex-wrap: wrap; justify-content: center; padding: 6px 10px; }
+    .stat { font-size: 11px; padding: 3px 7px; }
+    .stat b { font-size: 13px; }
+    #combo { font-size: 13px; min-width: 44px; }
+    #help { font-size: 10px; line-height: 1.6; }
+  }
+</style>
+</head>
+<body tabindex="0">
+  <h1>坦克大战 · VIBE 重制</h1>
+  <div id="hud">
+    <span class="stat"><span class="dot" style="color:#4ad1ff;background:#4ad1ff"></span>关卡 <b id="level">1</b></span>
+    <span class="stat"><span class="dot" style="color:#f2c94c;background:#f2c94c"></span>得分 <b id="score">0</b></span>
+    <span class="stat"><span class="dot" style="color:#c9b23c;background:#c9b23c"></span>波次 <b id="wave">1</b></span>
+    <span class="stat"><span class="dot" style="color:#5fce7a;background:#5fce7a"></span>生命 <b id="lives">3</b></span>
+    <span class="stat"><span class="dot" style="color:#ff9a3c;background:#ff9a3c"></span>最高 <b id="highscore">0</b></span>
+    <span id="combo"></span>
+  </div>
+  <div id="wrap">
+    <canvas id="game" width="520" height="520" tabindex="0"></canvas>
+  </div>
+  <div id="help">
+    <kbd>方向键</kbd>/<kbd>WASD</kbd> 移动 · <kbd>空格</kbd>/<kbd>J</kbd> 射击（P1）·
+    <kbd>F</kbd>/<kbd>G</kbd>/<kbd>K</kbd> 射击（P2）· <kbd>P</kbd> 暂停 · <kbd>F2</kbd> CRT · <kbd>F3</kbd> 调试
+    <br><span style="color:#f2c94c">若按键无反应，先点击一下游戏画面即可</span>
+  </div>
+
+  <script src="src/assets.js"></script>
+  <script src="src/config.js"></script>
+  <script src="src/utils.js"></script>
+  <script src="src/audio.js"></script>
+  <script src="src/input.js"></script>
+  <script src="src/map.js"></script>
+  <script src="src/entity.js"></script>
+  <script src="src/bullet.js"></script>
+  <script src="src/powerup.js"></script>
+  <script src="src/tank.js"></script>
+  <script src="src/ai.js"></script>
+  <script src="src/effects.js"></script>
+  <script src="src/editor.js"></script>
+  <script src="src/game.js"></script>
+  <script src="src/main.js"></script>
+</body>
+</html>
